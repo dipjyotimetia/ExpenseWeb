@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Heading,
     FormControl,
@@ -13,26 +13,52 @@ import {
     Stack
 } from '@chakra-ui/core'
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
 
     const toast = useToast();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     let history = useHistory();
+
+    const api = axios.create({
+        baseURL: '',
+        responseType: 'json',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Credentials': 'true'
+        }
+    });
+
+    const response = async () => {
+        const res = await api.post("/users/login", JSON.stringify({ email, password }));
+        return res.status;
+    };
 
     const registration = () => {
         history.push('/registration');
     }
 
     const login = () => {
-        toast({
-            title: "Logging in.",
-            description: "You are now logging to your account.",
-            status: "success",
-            duration: 3000,
-            isClosable: true,
-            onClose: () => { history.push('/homepage') },
-        })
+        if (response()) {
+            toast({
+                title: "Logging in.",
+                description: "You are now logging to your account.",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            })
+            history.push('/homepage')
+        }
+        else {
+            console.log('error')
+        }
+
     }
 
     // eslint-disable-next-line
@@ -66,14 +92,14 @@ const Login = () => {
                 <FormLabel alignContent='center' >
                     <FormControl isRequired>
                         <FormLabel htmlFor="email">Email Address</FormLabel>
-                        <Input type='email' id='email' aria-describedby="email-helper-text" placeholder="Email Address" />
+                        <Input type='email' id='email' aria-describedby="email-helper-text" placeholder="Email Address" onChange={event => setEmail(event.target.value)} />
                         <FormHelperText id="email-helper-text">
                             We'll never share your email.
                     </FormHelperText>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel htmlFor="password">Password</FormLabel>
-                        <Input type='password' id='password' aria-describedby="password-helper-text" placeholder="Password" />
+                        <Input type='password' id='password' aria-describedby="password-helper-text" placeholder="Password" onChange={event => setPassword(event.target.value)} />
                     </FormControl>
                 </FormLabel>
             </Stack>

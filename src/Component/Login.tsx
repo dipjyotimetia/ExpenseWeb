@@ -25,13 +25,11 @@ const Login = () => {
     let history = useHistory();
 
     const api = axios.create({
-        baseURL: '',
+        baseURL: 'https://bhsceu01z1.execute-api.ap-southeast-2.amazonaws.com/dev',
         responseType: 'json',
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Credentials': 'true'
         }
     });
 

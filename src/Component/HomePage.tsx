@@ -8,7 +8,12 @@ import {
     FormControl,
     FormLabel,
     Skeleton,
-    ThemeProvider
+    ThemeProvider,
+    NumberInput,
+    Slider,
+    SliderTrack,
+    SliderFilledTrack,
+    SliderThumb
 } from '@chakra-ui/core'
 import DatePicker from "react-datepicker";
 import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react';
@@ -17,8 +22,11 @@ import { getExpense } from "../api/api";
 
 const HomePage = () => {
     const [startDate, setStartDate] = useState(new Date());
+    const [value, setValue] = useState(0);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const handleChange = value => setValue(value);
 
     const fetchData = async () => {
         const res = await getExpense('testtest@gmail.com');
@@ -49,11 +57,25 @@ const HomePage = () => {
                 <Stack spacing={4}>
                     <FormControl isRequired>
                         <FormLabel htmlFor="password">Expense Type</FormLabel>
-                        <Input type='expenseType' id='expType' aria-describedby="password-helper-text" placeholder="Password" />
+                        <Input type='expenseType' id='expType' aria-describedby="password-helper-text" placeholder="Expense Type" />
                     </FormControl>
-                    <FormControl isRequired>
-                        <FormLabel htmlFor="password">Expense Amount</FormLabel>
-                        <Input type='expenseAmount' id='expAmount' aria-describedby="password-helper-text" placeholder="Password" />
+                    <FormControl isRequired placeholder='Expense Amount'>
+                        <NumberInput
+                            maxW="100px"
+                            mr="2rem"
+                            value={value}
+                            onChange={handleChange}
+                        />
+                        <Slider flex="1" value={value} onChange={handleChange}>
+                            <SliderTrack />
+                            <SliderFilledTrack />
+                            <SliderThumb
+                                fontSize="sm"
+                                width="32px"
+                                height="20px"
+                                children={value}
+                            />
+                        </Slider>
                     </FormControl>
                     <FormLabel htmlFor="email">Expense Date</FormLabel>
                     <DatePicker
@@ -67,21 +89,21 @@ const HomePage = () => {
             </Box>
             <Flex>
                 <Skeleton isLoaded={!loading}>
-                <Griddle
-                    components={{
-                        Filter
-                    }}
-                    data={data}
-                    plugins={[plugins.LocalPlugin]}
-                >
-                    <RowDefinition>
-                        <ColumnDefinition id='expenseType' title='Expense Type' order={1} customComponent={CustomColumn} />
-                        <Divider orientation="vertical" />
-                        <ColumnDefinition id='expenseAmount' title='Expense Amount' order={2} customHeadingComponent={CustomHeading} />
-                        <Divider orientation="vertical" />
-                        <ColumnDefinition id='expenseDate' title='Expense Date' order={3} />
-                    </RowDefinition>
-                </Griddle>
+                    <Griddle
+                        components={{
+                            Filter
+                        }}
+                        data={data}
+                        plugins={[plugins.LocalPlugin]}
+                    >
+                        <RowDefinition>
+                            <ColumnDefinition id='expenseType' title='Expense Type' order={1} customComponent={CustomColumn} />
+                            <Divider orientation="vertical" />
+                            <ColumnDefinition id='expenseAmount' title='Expense Amount' order={2} customHeadingComponent={CustomHeading} />
+                            <Divider orientation="vertical" />
+                            <ColumnDefinition id='expenseDate' title='Expense Date' order={3} />
+                        </RowDefinition>
+                    </Griddle>
                 </Skeleton>
             </Flex>
         </ThemeProvider>

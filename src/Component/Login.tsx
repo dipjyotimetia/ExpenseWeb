@@ -104,7 +104,7 @@ const Login = () => {
                 </Stack>
                 <Divider />
                 <ButtonGroup spacing={10}>
-                    <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline' onClick={handleLogin} >Login</Button>
+                    <Button isLoading={loading} loadingText='Login....' variantColor='teal' variant='outline' onClick={handleLogin} >Login</Button>
                     <Button variantColor='teal' variant='outline' onClick={handleSignup}>Sign Up</Button>
                 </ButtonGroup>
             </Box>

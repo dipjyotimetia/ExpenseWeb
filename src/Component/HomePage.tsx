@@ -13,7 +13,9 @@ import {
     Slider,
     SliderTrack,
     SliderFilledTrack,
-    SliderThumb
+    SliderThumb,
+    ButtonGroup,
+    Button
 } from '@chakra-ui/core'
 import DatePicker from "react-datepicker";
 import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react';
@@ -85,6 +87,10 @@ const HomePage = () => {
                         onChange={date => setStartDate(date)}
                         placeholderText="Expense Date"
                     />
+                    <Divider />
+                <ButtonGroup spacing={10}>
+                    <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline'>Add Expense</Button>
+                </ButtonGroup>
                 </Stack>
             </Box>
             <Flex>
@@ -98,9 +104,7 @@ const HomePage = () => {
                     >
                         <RowDefinition>
                             <ColumnDefinition id='expenseType' title='Expense Type' order={1} customComponent={CustomColumn} />
-                            <Divider orientation="vertical" />
                             <ColumnDefinition id='expenseAmount' title='Expense Amount' order={2} customHeadingComponent={CustomHeading} />
-                            <Divider orientation="vertical" />
                             <ColumnDefinition id='expenseDate' title='Expense Date' order={3} />
                         </RowDefinition>
                     </Griddle>

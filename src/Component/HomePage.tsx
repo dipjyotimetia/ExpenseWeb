@@ -7,7 +7,8 @@ import {
 import { Grid, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { getExpense } from "../api/api";
+import format from 'date-fns/format'
+import { addExpense, getExpense } from "../api/api";
 
 const useStyles = makeStyles({
     table: {
@@ -16,24 +17,41 @@ const useStyles = makeStyles({
 });
 
 const HomePage = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [value, setValue] = useState(0);
+
+    const [expenseDates, setExpenseDate] = useState(new Date());
+    const [expenseAmount, setExpenseAmount] = useState(0);
+    const [expenseType, setExpenseType] = useState(0);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const classes = useStyles();
 
-    const handleChange = value => setValue(value);
-    const handleDateChange = (date) => setStartDate(date);
+    const classes = useStyles();
+    const username = 'testtest@gmail.com';
+
+    const handleChange = (value) => setExpenseAmount(value);
+    const handleDateChange = (date) => setExpenseDate(date);
+
+    const handleExpense = async () => {
+        setLoading(true);
+        let expenseDate = format(expenseDates, 'dd/MM/yyyy');
+        const response = await addExpense({ username, expenseType, expenseAmount, expenseDate })
+        try {
+            if (response && response.user) {
+                setLoading(false);
+            }
+        } catch (error) {
+            setLoading(false);
+        }
+    }
 
     const fetchData = async () => {
-        const res = await getExpense('testtest@gmail.com');
+        const res = await getExpense(username);
         setData(res);
         setLoading(false);
     }
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [loading])
 
     return (
         <ThemeProvider>
@@ -41,23 +59,23 @@ const HomePage = () => {
                 <Stack spacing={4}>
                     <FormControl isRequired>
                         <FormLabel htmlFor="password">Expense Type</FormLabel>
-                        <Input type='expenseType' id='expType' aria-describedby="password-helper-text" placeholder="Expense Type" />
+                        <Input type='expenseType' id='expType' aria-describedby="password-helper-text" onChange={e => setExpenseType(e.target.value)} placeholder="Expense Type" />
                     </FormControl>
                     <FormControl isRequired placeholder='Expense Amount'>
                         <NumberInput
                             maxW="100px"
                             mr="2rem"
-                            value={value}
+                            value={expenseAmount}
                             onChange={handleChange}
                         />
-                        <Slider flex="1" value={value} onChange={handleChange}>
+                        <Slider flex="1" value={expenseAmount} onChange={handleChange}>
                             <SliderTrack />
                             <SliderFilledTrack />
                             <SliderThumb
                                 fontSize="sm"
                                 width="32px"
                                 height="20px"
-                                children={value}
+                                children={expenseAmount}
                             />
                         </Slider>
                     </FormControl>
@@ -67,8 +85,8 @@ const HomePage = () => {
                                 margin="normal"
                                 id="date-picker-dialog"
                                 label="Expense Date"
-                                format="MM/dd/yyyy"
-                                value={startDate}
+                                format="dd/MM/yyyy"
+                                value={expenseDates}
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
@@ -78,7 +96,7 @@ const HomePage = () => {
                     </MuiPickersUtilsProvider>
                     <Divider />
                     <ButtonGroup spacing={10}>
-                        <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline'>Add Expense</Button>
+                        <Button isLoading={loading} loadingText='Loading...' variantColor='teal' variant='outline' onClick={handleExpense}>Add Expense</Button>
                     </ButtonGroup>
                 </Stack>
             </Box>

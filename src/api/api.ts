@@ -25,3 +25,8 @@ export const getExpense = async (username) => {
     const res = await api.get(`${ExpenseApi}/api/expenses/${username}/`);
     return res.data;
 }
+
+export const addExpense = async ({ username, expenseType, expenseAmount, expenseDate }) => {
+    const res = await api.post(`${ExpenseApi}/api/expenses`, JSON.stringify({ username, expenseType, expenseAmount, expenseDate }));
+    return res.data;
+}

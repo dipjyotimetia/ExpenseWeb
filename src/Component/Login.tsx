@@ -37,7 +37,7 @@ const Login = () => {
             if (response && response.user) {
                 successToast();
                 history.push('/homepage');
-                localStorage.setItem('toekn', response.token);
+                localStorage.setItem('token', response.token);
                 setLoading(false);
             }
         } catch (error) {
@@ -61,17 +61,6 @@ const Login = () => {
             title: "Warning.",
             description: "This is a wrong username/password.",
             status: "warning",
-            duration: 9000,
-            isClosable: true,
-        })
-    }
-
-    // eslint-disable-next-line
-    const wrongAccount = () => {
-        toast({
-            title: "An error occurred.",
-            description: "Unable to create user account.",
-            status: "error",
             duration: 9000,
             isClosable: true,
         })
@@ -104,7 +93,7 @@ const Login = () => {
                 </Stack>
                 <Divider />
                 <ButtonGroup spacing={10}>
-                    <Button isLoading={loading} loadingText='Login....' variantColor='teal' variant='outline' onClick={handleLogin} >Login</Button>
+                    <Button isLoading={loading} loadingText='Loading...' variantColor='teal' variant='outline' onClick={handleLogin} >Login</Button>
                     <Button variantColor='teal' variant='outline' onClick={handleSignup}>Sign Up</Button>
                 </ButtonGroup>
             </Box>

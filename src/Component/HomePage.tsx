@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Input,
-    Box,
-    Flex,
-    Stack,
-    Divider,
-    FormControl,
-    FormLabel,
-    Skeleton,
-    ThemeProvider,
-    NumberInput,
-    Slider,
-    SliderTrack,
-    SliderFilledTrack,
-    SliderThumb,
-    ButtonGroup,
-    Button
+    Input, Box, Flex, Stack, Divider, FormControl, FormLabel, Skeleton,
+    ThemeProvider, NumberInput, Slider, SliderTrack, SliderFilledTrack,
+    SliderThumb, ButtonGroup, Button
 } from '@chakra-ui/core'
-import DatePicker from "react-datepicker";
-import Griddle, { plugins, RowDefinition, ColumnDefinition } from 'griddle-react';
-import "react-datepicker/dist/react-datepicker.css";
+import { Grid, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import { getExpense } from "../api/api";
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    }
+});
 
 const HomePage = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [value, setValue] = useState(0);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const classes = useStyles();
 
     const handleChange = value => setValue(value);
+    const handleDateChange = (date) => setStartDate(date);
 
     const fetchData = async () => {
         const res = await getExpense('testtest@gmail.com');
@@ -39,19 +34,6 @@ const HomePage = () => {
     useEffect(() => {
         fetchData();
     }, [])
-
-    const Filter = () => {
-        return (
-            <select onChange={(e) => e.target.value}>
-                <option value="">All</option>
-                <option value="chicken">chicken</option>
-                <option value="maida">maida</option>
-                <option value="atta">atta</option>
-            </select>
-        )
-    }
-    const CustomColumn = ({ value }) => <span style={{ color: '#0000AA' }}>{value}</span>;
-    const CustomHeading = ({ title }) => <span style={{ color: '#AA0000' }}>{title}</span>;
 
     return (
         <ThemeProvider>
@@ -79,35 +61,52 @@ const HomePage = () => {
                             />
                         </Slider>
                     </FormControl>
-                    <FormLabel htmlFor="email">Expense Date</FormLabel>
-                    <DatePicker
-                        dateFormat="dd/MM/yyyy"
-                        showPopperArrow={false}
-                        selected={startDate}
-                        onChange={date => setStartDate(date)}
-                        placeholderText="Expense Date"
-                    />
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify="space-around">
+                            <KeyboardDatePicker
+                                margin="normal"
+                                id="date-picker-dialog"
+                                label="Expense Date"
+                                format="MM/dd/yyyy"
+                                value={startDate}
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
+                    </MuiPickersUtilsProvider>
                     <Divider />
-                <ButtonGroup spacing={10}>
-                    <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline'>Add Expense</Button>
-                </ButtonGroup>
+                    <ButtonGroup spacing={10}>
+                        <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline'>Add Expense</Button>
+                    </ButtonGroup>
                 </Stack>
             </Box>
-            <Flex>
-                <Skeleton isLoaded={!loading}>
-                    <Griddle
-                        components={{
-                            Filter
-                        }}
-                        data={data}
-                        plugins={[plugins.LocalPlugin]}
-                    >
-                        <RowDefinition>
-                            <ColumnDefinition id='expenseType' title='Expense Type' order={1} customComponent={CustomColumn} />
-                            <ColumnDefinition id='expenseAmount' title='Expense Amount' order={2} customHeadingComponent={CustomHeading} />
-                            <ColumnDefinition id='expenseDate' title='Expense Date' order={3} />
-                        </RowDefinition>
-                    </Griddle>
+            <Divider />
+            <Flex align="center" justify="center">
+                <Skeleton isLoaded={!loading} animation='wave' >
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Expense Type</TableCell>
+                                    <TableCell align="right">Expense Amount</TableCell>
+                                    <TableCell align="right">Expense Date&nbsp;</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {data.map((row) => (
+                                    <TableRow key={row._id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.expenseType}
+                                        </TableCell>
+                                        <TableCell align="right">{row.expenseAmount}</TableCell>
+                                        <TableCell align="right">{row.expenseDate}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Skeleton>
             </Flex>
         </ThemeProvider>

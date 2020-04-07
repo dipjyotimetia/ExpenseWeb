@@ -1,17 +1,8 @@
 import React, { useState } from "react";
 import {
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    Input,
-    Divider,
-    ButtonGroup,
-    Button,
-    useToast,
-    Select,
-    FormHelperText,
-    Box,
-    Stack
+    FormControl, FormLabel, FormErrorMessage, Input,
+    Divider, ButtonGroup, Button, useToast, Select,
+    FormHelperText, Box, Stack
 } from '@chakra-ui/core'
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";

@@ -4,7 +4,11 @@ import {
     ThemeProvider, NumberInput, Slider, SliderTrack, SliderFilledTrack,
     SliderThumb, ButtonGroup, Button
 } from '@chakra-ui/core'
-import { Grid, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core";
+import {
+    Grid, makeStyles, Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow, Paper, TablePagination
+}
+    from "@material-ui/core";
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import format from 'date-fns/format'
@@ -13,8 +17,20 @@ import { addExpense, getExpense } from "../api/api";
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
-    }
+    },
+    root: {
+        width: '200%',
+    },
+    container: {
+        maxHeight: 650,
+    },
 });
+
+const columns = [
+    { id: 'expenseType', label: 'Expense Type', minWidth: 170 },
+    { id: 'expenseAmount', label: 'Expense Amount', minWidth: 100, format: (value) => value.toLocaleString(), },
+    { id: 'expenseDate', label: 'Expense Date', minWidth: 100, format: (value) => value.toLocaleString(), }
+];
 
 const HomePage = () => {
 
@@ -23,12 +39,19 @@ const HomePage = () => {
     const [expenseType, setExpenseType] = useState(0);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const classes = useStyles();
-    const username = 'testtest@gmail.com';
+    const username = localStorage.getItem('user');
 
     const handleChange = (value) => setExpenseAmount(value);
     const handleDateChange = (date) => setExpenseDate(date);
+    const handleChangePage = (event, newPage) => setPage(newPage);
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
     const handleExpense = async () => {
         setLoading(true);
@@ -104,27 +127,47 @@ const HomePage = () => {
             <Flex align="center" justify="center">
                 <Skeleton isLoaded={!loading} animation='wave' >
                     <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="simple table">
+                        <Table className={classes.table} stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Expense Type</TableCell>
-                                    <TableCell align="right">Expense Amount</TableCell>
-                                    <TableCell align="right">Expense Date&nbsp;</TableCell>
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            key={column.id}
+                                            align='center'
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.map((row) => (
-                                    <TableRow key={row._id}>
-                                        <TableCell component="th" scope="row">
-                                            {row.expenseType}
-                                        </TableCell>
-                                        <TableCell align="right">{row.expenseAmount}</TableCell>
-                                        <TableCell align="right">{row.expenseDate}</TableCell>
-                                    </TableRow>
-                                ))}
+                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
+                                            {columns.map((column) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell key={column.id} align='center'>
+                                                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    );
+                                })}
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[10, 25, 100]}
+                        component="div"
+                        count={data.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                    />
                 </Skeleton>
             </Flex>
         </ThemeProvider>

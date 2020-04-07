@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import {
-    Heading,
-    FormControl,
-    FormLabel,
-    FormHelperText,
-    Input,
-    Button,
-    ButtonGroup,
-    Divider,
-    useToast,
-    Box,
-    Stack,
-    Alert,
-    AlertIcon,
-    ThemeProvider
+    Heading, FormControl, FormLabel, FormHelperText,
+    Input, Button, ButtonGroup, Divider, useToast,
+    Box, Stack, Alert, AlertIcon, ThemeProvider
 } from '@chakra-ui/core'
 import { useHistory } from "react-router-dom";
 import { getLogin } from "../api/api";
@@ -37,7 +26,7 @@ const Login = () => {
             if (response && response.user) {
                 successToast();
                 history.push('/homepage');
-                localStorage.setItem('token', response.token);
+                localStorage.setItem('user', email);
                 setLoading(false);
             }
         } catch (error) {

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
     Heading, FormControl, FormLabel, FormHelperText,
     Input, Button, ButtonGroup, Divider, useToast,
     Box, Stack, Alert, AlertIcon, ThemeProvider
 } from '@chakra-ui/core'
 import { useHistory } from "react-router-dom";
-import { getLogin } from "../api/api";
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from "../actions/userActions";
 
 const Login = () => {
 
@@ -14,26 +15,26 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const dispatch = useDispatch();
+    // const status = useSelector(store => store.user.status);
 
     const handleSignup = () => {
         history.push('/registration');
     }
 
-    const handleLogin = async () => {
+    const handleLogin = useCallback(() => {
         try {
             setLoading(true);
-            const response = await getLogin({ email, password });
-            if (response && response.user) {
-                successToast();
-                history.push('/homepage');
-                localStorage.setItem('user', email);
-                setLoading(false);
-            }
+            dispatch(login(email, password));
+            successToast();
+            history.push('/homepage');
+            localStorage.setItem('user', email);
+            setLoading(false);
         } catch (error) {
             wrongPassword();
             setLoading(false);
         }
-    }
+    }, [email, password]);
 
     const successToast = () => {
         toast({

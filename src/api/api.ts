@@ -31,6 +31,19 @@ export const addExpense = async ({ username, expenseType, expenseAmount, expense
     return res.data;
 }
 
+export const getAccountDetails = async (token) => {
+    const api2 = axios.create({
+        responseType: 'json',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    const res = await api2.get(`${AccountApi}/users/me`);
+    return res.data;
+}
+
 export const logout = async (token) => {
     const api2 = axios.create({
         responseType: 'json',

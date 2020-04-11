@@ -5,16 +5,19 @@ import {
     SliderThumb, ButtonGroup, Button
 } from '@chakra-ui/core'
 import {
-    Grid, makeStyles, Table, TableBody, TableCell, TableContainer,
-    TableHead, TableRow, Paper, TablePagination
+    Grid, makeStyles, Table, TableBody, TableCell, TableContainer, Typography,
+    TableHead, TableRow, Paper, TablePagination, IconButton, AppBar, Toolbar
 }
     from "@material-ui/core";
+import ButtonPlace from '@material-ui/core/Button';
+import MenuIcon from '@material-ui/icons/Menu';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import format from 'date-fns/format'
-import { addExpense, getExpense } from "../api/api";
+import { useHistory } from "react-router-dom";
+import { addExpense, getExpense, logout } from "../api/api";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 650,
     },
@@ -24,7 +27,13 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 650,
     },
-});
+    title: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+}));
 
 const columns = [
     { id: 'expenseType', label: 'Expense Type', minWidth: 170 },
@@ -41,9 +50,10 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-
+    const history = useHistory();
     const classes = useStyles();
     const username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
 
     const handleChange = (value) => setExpenseAmount(value);
     const handleDateChange = (date) => setExpenseDate(date);
@@ -66,6 +76,13 @@ const HomePage = () => {
         }
     }
 
+    const handleLogout = async ()=>{
+        const res = await logout(token);
+        if (res===200) {
+            history.push('/');
+        }
+    }
+
     const fetchData = async () => {
         const res = await getExpense(username);
         setData(res);
@@ -78,6 +95,16 @@ const HomePage = () => {
 
     return (
         <ThemeProvider>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                    </Typography>
+                    <ButtonPlace color="inherit" onClick={handleLogout}>Logout</ButtonPlace>
+                </Toolbar>
+            </AppBar>
             <Box textAlign="center" w={600} mx="auto" p={6} bg="white" border="1px solid" borderColor="gray.200" borderRadius="md">
                 <Stack spacing={4}>
                     <FormControl isRequired>

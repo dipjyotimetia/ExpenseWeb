@@ -30,3 +30,16 @@ export const addExpense = async ({ username, expenseType, expenseAmount, expense
     const res = await api.post(`${ExpenseApi}/api/expenses`, JSON.stringify({ username, expenseType, expenseAmount, expenseDate }));
     return res.data;
 }
+
+export const logout = async (token) => {
+    const api2 = axios.create({
+        responseType: 'json',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    const res = await api2.post(`${AccountApi}/users/me/logoutall`);
+    return res.status;
+}

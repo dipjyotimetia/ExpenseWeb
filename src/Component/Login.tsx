@@ -27,6 +27,7 @@ const Login = () => {
                 successToast();
                 history.push('/homepage');
                 localStorage.setItem('user', email);
+                localStorage.setItem('token', response.token);
                 setLoading(false);
             }
         } catch (error) {

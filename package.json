@@ -26,6 +26,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-toastify": "^5.5.0",
+    "react-select": "^3.1.0",
     "validator": "^13.0.0",
     "yup": "^0.28.3"
   },
@@ -34,6 +35,7 @@
     "@types/node": "^13.11.0",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.5",
+    "@types/react-select": "^3.0.11",
     "tslint": "^6.1.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",

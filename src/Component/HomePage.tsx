@@ -15,7 +15,10 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import format from 'date-fns/format'
 import { useHistory } from "react-router-dom";
-import { addExpense, getExpense, logout } from "../api/api";
+import { addExpense, logout } from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { getExpense } from '../redux/actions/expense'
+import { RootState } from '../redux/RootState';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -47,13 +50,16 @@ const HomePage = () => {
     const [expenseAmount, setExpenseAmount] = useState(0);
     const [expenseType, setExpenseType] = useState(0);
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const history = useHistory();
     const classes = useStyles();
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+    const dispatch = useDispatch();
+    const expense = useSelector((state: RootState) => state.expense.expense);
+    const loading = useSelector((state: RootState) => state.expense.loading);
 
     const handleChange = (value) => setExpenseAmount(value);
     const handleDateChange = (date) => setExpenseDate(date);
@@ -64,34 +70,27 @@ const HomePage = () => {
     };
 
     const handleExpense = async () => {
-        setLoading(true);
         let expenseDate = format(expenseDates, 'dd/MM/yyyy');
         const response = await addExpense({ username, expenseType, expenseAmount, expenseDate })
         try {
             if (response && response.user) {
-                setLoading(false);
+                // setLoading(false);
             }
         } catch (error) {
-            setLoading(false);
+            // setLoading(false);
         }
     }
 
-    const handleLogout = async ()=>{
+    const handleLogout = async () => {
         const res = await logout(token);
-        if (res===200) {
+        if (res === 200) {
             history.push('/');
         }
     }
 
-    const fetchData = async () => {
-        const res = await getExpense(username);
-        setData(res);
-        setLoading(false);
-    }
-
     useEffect(() => {
-        fetchData();
-    }, [loading])
+        dispatch(getExpense(expense))
+    }, []);
 
     return (
         <ThemeProvider>
@@ -169,7 +168,7 @@ const HomePage = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                {expense.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                                             {columns.map((column) => {
@@ -189,7 +188,7 @@ const HomePage = () => {
                     <TablePagination
                         rowsPerPageOptions={[10, 25, 100]}
                         component="div"
-                        count={data.length}
+                        count={expense.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}

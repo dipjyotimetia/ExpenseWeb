@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-let url = process.env.MONGODB_URL_TEST;
+let url = "mongodb://mongodb:27017/accounts";
 
 mongoose.connect(url, {
     useNewUrlParser: true,

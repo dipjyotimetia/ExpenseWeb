@@ -10,6 +10,10 @@ services:
       - mongodbaccount
   mongodbaccount:
     container_name: mongodbaccount
+    environment:
+      - MONGO_INITDB_DATABASE=accounts
+      # - MONGO_INITDB_ROOT_USERNAME=test
+      # - MONGO_INITDB_ROOT_PASSWORD=xyzabc
     image: mongo:3.6.21
     # volumes:
     #   - ./data:/data/db

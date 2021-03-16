@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const AccountApi = "https://bhsceu01z1.execute-api.ap-southeast-2.amazonaws.com/dev";
-const ExpenseApi = "https://g5aeksi9kh.execute-api.ap-southeast-2.amazonaws.com/dev";
+const AccountApi = "localhost:3001";
+const ExpenseApi = "localhost:3002";
 
 const api = axios.create({
     responseType: 'json',

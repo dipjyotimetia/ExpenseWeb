@@ -1,0 +1,4 @@
+{
+    "expenseHost":"http://expense.com.au:3000",
+    "categoryHost":"http://categories.com.au:3001"
+}

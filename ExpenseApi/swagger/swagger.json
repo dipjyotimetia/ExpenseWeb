@@ -1,0 +1,315 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a Mobile API",
+    "version": "1.0.0",
+    "title": "Mobile API",
+    "contact": {
+      "email": "dipjyotimetia@gmail.com"
+    }
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/dipjyotimetia/MobileApi/1.0.0",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Users details"
+    },
+    {
+      "name": "category",
+      "description": "Different categories"
+    },
+    {
+      "name": "expenses",
+      "description": "Expense details"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/category": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Get Category",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "seacrhCategory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "adds an category item",
+        "description": "Adds an item to the system",
+        "operationId": "addCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "categoryItem",
+            "description": "category item to add",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/CategoryItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get Users",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchUsers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "adds an inventory item",
+        "description": "Adds an item to the system",
+        "operationId": "addUsers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userItem",
+            "description": "Inventory item to add",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/api/expenses": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get Expenses",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchExpenses",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria"
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "adds expenses",
+        "description": "Adds an item to the system",
+        "operationId": "addExpenses",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ExpenseItem",
+            "description": "Expense item to add",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ExpenseItem"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserItem": {
+      "type": "object",
+      "required": [
+        "email",
+        "firstName",
+        "lastName",
+        "password",
+        "userName"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "firstname"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "lastname"
+        },
+        "userName": {
+          "type": "string",
+          "example": "username"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "Password1"
+        }
+      }
+    },
+    "ExpenseItem": {
+      "type": "object",
+      "required": [
+        "expenseAmount",
+        "expenseDate",
+        "expenseType",
+        "username"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "username"
+        },
+        "expenseType": {
+          "type": "string",
+          "example": "expenseType"
+        },
+        "expenseAmount": {
+          "type": "string",
+          "example": "expenseAmount"
+        },
+        "expenseDate": {
+          "type": "string",
+          "example": "expenseDate"
+        }
+      }
+    },
+    "CategoryItem": {
+      "type": "object",
+      "required": [
+        "categories",
+        "description",
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name": {
+          "type": "string",
+          "example": "Widget Adapter"
+        },
+        "description": {
+          "type": "string",
+          "format": "string",
+          "example": "any small description"
+        },
+        "categories": {
+          "$ref": "#/definitions/categories"
+        }
+      }
+    },
+    "categories": {
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "ACME Corporation"
+        },
+        "description": {
+          "type": "string",
+          "format": "url",
+          "example": "https://www.acme-corp.com"
+        },
+        "isActive": {
+          "type": "string",
+          "example": "408-867-5309"
+        }
+      }
+    }
+  }
+}

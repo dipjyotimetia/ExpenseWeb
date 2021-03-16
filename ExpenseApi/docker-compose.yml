@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  backend:
+    container_name: expenseapi
+    restart: always
+    build: .
+    ports:
+      - "4000:4000"
+    links:
+      - mongodbexpense
+  mongodbexpense:
+    container_name: mongodbexpense
+    image: mongo:3.6.21
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"

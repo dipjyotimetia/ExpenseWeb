@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  backend:
+    container_name: accountapi
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongodbaccount
+  mongodbaccount:
+    container_name: mongodbaccount
+    image: mongo:3.6.21
+    # volumes:
+    #   - ./data:/data/db
+    ports:
+      - "27017:27017"

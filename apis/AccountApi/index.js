@@ -1,11 +1,17 @@
-const serverless = require('serverless-http');
 const express = require('express');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const userRouter = require('./src/routers/user');
-require('./src/db/db');
 
 const app = express();
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
+console.log('This is a real database');
+mongoose.connect("mongodb://mongodb:27017/testdb", { useUnifiedTopology: true });
 const sixtyDaysInSeconds = 5184000;
 
 app.use(cors());

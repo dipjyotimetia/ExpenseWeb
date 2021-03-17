@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  webapp:
+    container_name: expenseweb
+    build: .
+    ports:
+      - "3000:3000"
+
+  expense:
+    container_name: expenseapi
+    restart: always
+    build: ./apis/ExpenseApi
+    ports:
+      - "3001:3001"
+    links:
+      - mongodb
+
+  account:
+    container_name: accountapi
+    restart: always
+    build: ./apis/AccountApi
+    ports:
+      - "3002:3002"
+    links:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:3.6.21
+    environment: 
+      - MONGO_INITDB_DATABASE=testdb
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"

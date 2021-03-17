@@ -1,6 +1,6 @@
 ## ExpenseWeb
 
-## To start with the project
+## To start the project
 ```bash
 docker-compose up -d
 ```

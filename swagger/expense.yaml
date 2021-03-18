@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  description: Expense Api
+  version: 2.0.0
+  title: Expense API
+  contact:
+    email: dipjyotimetia@gmail.com
+host: localhost:3001
+tags:
+  - name: expenses
+    description: Expense details  
+schemes:
+  - http
+paths:
+  /expenses:
+    post:
+      tags:
+        - expenses
+      summary: Adds Expense
+      description: Adds an item to the system
+      operationId: addExpenses
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: ExpenseItem
+          description: Expense item to add
+          required: false
+          schema:
+            $ref: '#/definitions/ExpenseItem'
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+    get:
+      tags:
+        - expenses
+      summary: Get All Expenses
+      description: |
+        Get all the expenses
+      operationId: getAllExpenses
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+  /expenses/:expenseId:
+    put:
+      tags:
+        - expenses
+      summary: Update Expense
+      description: Update existing expenses
+      operationId: updateExpenses
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: ExpenseItem
+          description: Expense item to update
+          required: false
+          schema:
+            $ref: '#/definitions/ExpenseItem'
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists      
+  /expenses/:username:
+    get:
+      tags:
+        - expenses
+      summary: Get Expense by username
+      description: Get an expense by username
+      operationId: getExpense
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+  /expenses/:id:
+    delete:
+      tags:
+        - expenses
+      summary: Delete Expenses
+      description: |
+        Delete expenses
+      operationId: deleteExpenses
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+    
+definitions:
+  ExpenseItem:
+    type: object
+    required:
+      - username
+      - expenseType
+      - expenseAmount
+      - expenseDate
+    properties:
+      username:
+        type: string
+        example: username
+      expenseType:
+        type: string
+        example: expenseType
+      expenseAmount:
+        type: string
+        example: expenseAmount
+      expenseDate:
+        type: string
+        example: expenseDate

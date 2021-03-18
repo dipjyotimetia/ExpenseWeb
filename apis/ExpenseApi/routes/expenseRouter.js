@@ -24,10 +24,9 @@ const routes = (Expense) => {
         })
     });
 
-    expenseRouter.delete('/expenses/:id', (req, res) => {
-        const id = { 'username': req.params._id };
-        Expense.remove({
-            _id: id
+    expenseRouter.delete('/expenses/:expenseId', (req, res) => {
+        Expense.findOneAndRemove({
+            _id: req.params._id
         }, (err, expense) => {
             if (err) {
                 res.status(500).json(err)
@@ -57,7 +56,7 @@ const routes = (Expense) => {
         .put((req, res) => {
             const { expense } = req;
             expense.username = req.body.username;
-            expense.expenseType = req.body.expenseType;
+            expense.expenseType = `${req.body.expenseType}!`;
             expense.expenseAmount = req.body.expenseAmount;
             expense.expenseDate = req.body.expenseDate;
             expense.save();

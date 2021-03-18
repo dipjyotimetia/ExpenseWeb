@@ -1,0 +1,128 @@
+swagger: '2.0'
+info:
+  description: Account Api
+  version: 2.0.0
+  title: Account API
+  contact:
+    email: dipjyotimetia@gmail.com
+host: localhost:3002
+tags:
+  - name: users
+    description: Users details
+schemes:
+  - http
+paths:
+  /users:
+    post:
+      tags:
+        - users
+      summary: Create new users
+      description: Adds an new user to the system
+      operationId: addUsers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: userItem
+          description: Inventory item to add
+          required: false
+          schema:
+            $ref: '#/definitions/UserItem'
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Login User
+      description: |
+        By passing username and password login a user
+      operationId: loginUsers
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+  /users/me:
+    get:
+      tags:
+        - users
+      summary: User Info
+      description: |
+        By passing bearer token get login info
+      operationId: infoUsers
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter 
+  /users/me/logout:
+    post:
+      tags:
+        - users
+      summary: Logout user
+      description: |
+        By passing bearer token logout user
+      operationId: logoutUser
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+  /users/me/logoutall:
+    post:
+      tags:
+        - users
+      summary: Logout all user session
+      description: |
+        By passing bearer token logout all user session
+      operationId: logoutAllSession
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: search results matching criteria
+        '400':
+          description: bad input parameter
+definitions:
+  UserItem:
+    type: object
+    required:
+      - email
+      - firstName
+      - lastName
+      - password
+      - userName
+    properties:
+      firstName:
+        type: string
+        example: firstname
+      lastName:
+        type: string
+        example: lastname
+      userName:
+        type: string
+        example: username
+      email:
+        type: string
+        example: email@gmail.com
+      password:
+        type: string
+        example: Password1

@@ -33,3 +33,15 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger
+    environment:
+      # API_URL: swagger/expense.yaml
+      URLS: "[{ url: \"./swagger/expense.yaml\", name: \"Expense\" },
+              { url: \"./swagger/account.yaml\", name: \"Account\" },]"

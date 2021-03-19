@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const AccountApi = "localhost:3002";
-const ExpenseApi = "localhost:3001";
+const AccountApi = "http://localhost:3002";
+const ExpenseApi = "http://localhost:3001";
 
 const api = axios.create({
     responseType: 'json',
@@ -12,12 +12,12 @@ const api = axios.create({
 });
 
 export const getLogin = async ({ email, password }) => {
-    const res = await api.post(`${AccountApi}/users/login`, JSON.stringify({ email, password }));
+    const res = await api.post(`${AccountApi}/api/users/login`, JSON.stringify({ email, password }));
     return res.data;
 }
 
 export const registration = async ({ firstName, lastName, username, email, password }) => {
-    const res = await api.post(`${AccountApi}/users/`, JSON.stringify({ firstName, lastName, username, email, password }));
+    const res = await api.post(`${AccountApi}/api/users/`, JSON.stringify({ firstName, lastName, username, email, password }));
     return res.data;
 }
 
@@ -40,7 +40,7 @@ export const getAccountDetails = async (token) => {
             "Authorization": `Bearer ${token}`
         }
     });
-    const res = await api2.get(`${AccountApi}/users/me`);
+    const res = await api2.get(`${AccountApi}/api/users/me`);
     return res.data;
 }
 
@@ -53,6 +53,6 @@ export const logout = async (token) => {
             "Authorization": `Bearer ${token}`
         }
     });
-    const res = await api2.post(`${AccountApi}/users/me/logoutall`);
+    const res = await api2.post(`${AccountApi}/api/users/me/logoutall`);
     return res.status;
 }

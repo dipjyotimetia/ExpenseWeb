@@ -23,7 +23,7 @@ const expenseTypeRouter = require('./routes/expenseTypeRouter');
 const categoryRouter = require('./routes/categoryRouter')(Category);
 
 app.use(compression());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

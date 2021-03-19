@@ -5,6 +5,9 @@ services:
     build: .
     ports:
       - "3000:3000"
+    links:
+      - expense
+      - account
 
   expense:
     container_name: expenseapi

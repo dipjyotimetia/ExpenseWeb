@@ -11,12 +11,12 @@ docker-compose up -d
 ## WebUI
 navigate to `http://localhost:3000`
 
-## Swagger ui
-navigate to `http://localhost:8080`
+### Existing TestUser Details
+`username`: testauto@gmail.com  
+`password`: Password1
 
-## Existing TestUser Details
-username: testauto@gmail.com
-password: Password1
+## SwaggerUI
+navigate to `http://localhost:8080`
 
 ## To stop the project
 ```bash

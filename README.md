@@ -14,6 +14,10 @@ navigate to `http://localhost:3000`
 ## Swagger ui
 navigate to `http://localhost:8080`
 
+## Existing TestUser Details
+username: testauto@gmail.com
+password: Password1
+
 ## To stop the project
 ```bash
 docker-compose stop

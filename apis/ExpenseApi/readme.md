@@ -4,8 +4,8 @@
 ### `http://localhost:3001/api/expenses`
 ```json
 {
-    "username": "test1@gmail.com",
-    "expenseType": "Test",
+    "username": "testauto@gmail.com",
+    "expenseType": "TestExpense",
     "expenseAmount": 20,
     "expenseDate": "12/12/1990"
 }

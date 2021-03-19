@@ -7,8 +7,8 @@
 {
   "firstName": "Test",
   "lastName": "Auto",
-  "username": "Testautos",
-  "email": "testauton@gmail.com",
+  "username": "testauto",
+  "email": "testauto@gmail.com",
   "password": "Password1"
 }
 ```
@@ -19,7 +19,7 @@
 
 ```json
 {
-  "email": "testautonew@gmail.com",
+  "email": "testauto@gmail.com",
   "password": "Password1"
 }
 ```
@@ -28,16 +28,15 @@
 
 ### `http://localhost:3002/api/users/me/logoutall`
 
-Bearertoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDRiOTE2YWI5ZmI1YzdjZDNmOTdiY2MiLCJpYXQiOjE1NjUyMzQyNTl9.X59xUrJAbEv_KugAxEGt7OEWHQPgl-cj4QNPSBXkD54
+Bearertoken: xyz
 
 ### POST(Logout)
 
 ### `http://localhost:3002/api/users/me/logout`
 
-Bearertoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDRiOTE2YWI5ZmI1YzdjZDNmOTdiY2MiLCJpYXQiOjE1NjUyMzQyNTl9.X59xUrJAbEv_KugAxEGt7OEWHQPgl-cj4QNPSBXkD54
-
+Bearertoken: xyz
 ### GET(Users)
 
 ### `http://localhost:3002/api/users/me`
 
-Bearertoken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDRiOTE2YWI5ZmI1YzdjZDNmOTdiY2MiLCJpYXQiOjE1NjUyMzQyNTl9.X59xUrJAbEv_KugAxEGt7OEWHQPgl-cj4QNPSBXkD54
+Bearertoken: xyz

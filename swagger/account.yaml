@@ -129,7 +129,7 @@ definitions:
       lastName:
         type: string
         example: lastname
-      userName:
+      username:
         type: string
         example: username
       email:

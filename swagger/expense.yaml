@@ -16,7 +16,7 @@ paths:
     post:
       tags:
         - expenses
-      summary: Adds Expense
+      summary: Add expense details
       description: Adds an item to the system
       operationId: addExpenses
       consumes:
@@ -50,11 +50,11 @@ paths:
           description: get all expense details
         '400':
           description: bad input parameter
-  /api/expenses/:expenseId:
+  /api/expenses/{expenseId}:
     put:
       tags:
         - expenses
-      summary: Update Expense
+      summary: Update expense
       description: Update existing expenses
       operationId: updateExpenses
       consumes:
@@ -62,6 +62,10 @@ paths:
       produces:
         - application/json
       parameters:
+        - in: path
+          name: expenseId
+          description: Expense id
+          type: integer
         - in: body
           name: ExpenseItem
           description: Expense item to update
@@ -73,23 +77,28 @@ paths:
           description: expense updated
         '400':
           description: 'invalid data provided'    
-  /api/expenses/:username:
+  /api/expenses/{username}:
     get:
       tags:
         - expenses
-      summary: Get Expense by username
+      summary: Get expense by username
       description: Get an expense by username
       operationId: getExpense
       consumes:
         - application/json
       produces:
         - application/json
+      parameters:
+        - in: path
+          name: username
+          description: Username
+          type: string 
       responses:
         '201':
           description: get expense by user
         '400':
           description: 'Data not found'
-  /api/expenses/:id:
+  /api/expenses/{id}:
     delete:
       tags:
         - expenses
@@ -99,7 +108,11 @@ paths:
       operationId: deleteExpenses
       produces:
         - application/json
-      parameters: []
+      parameters:
+        - in: path
+          name: id
+          description: Id
+          type: integer
       responses:
         '200':
           description: deleted expense details

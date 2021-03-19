@@ -12,7 +12,7 @@ tags:
 schemes:
   - http
 paths:
-  /expenses:
+  /api/expenses:
     post:
       tags:
         - expenses
@@ -32,11 +32,9 @@ paths:
             $ref: '#/definitions/ExpenseItem'
       responses:
         '201':
-          description: item created
+          description: expense details added
         '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing item already exists
+          description: 'invalid input details'
     get:
       tags:
         - expenses
@@ -49,10 +47,10 @@ paths:
       parameters: []
       responses:
         '200':
-          description: search results matching criteria
+          description: get all expense details
         '400':
           description: bad input parameter
-  /expenses/:expenseId:
+  /api/expenses/:expenseId:
     put:
       tags:
         - expenses
@@ -72,12 +70,10 @@ paths:
             $ref: '#/definitions/ExpenseItem'
       responses:
         '201':
-          description: item created
+          description: expense updated
         '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing item already exists      
-  /expenses/:username:
+          description: 'invalid data provided'    
+  /api/expenses/:username:
     get:
       tags:
         - expenses
@@ -90,12 +86,10 @@ paths:
         - application/json
       responses:
         '201':
-          description: item created
+          description: get expense by user
         '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing item already exists
-  /expenses/:id:
+          description: 'Data not found'
+  /api/expenses/:id:
     delete:
       tags:
         - expenses
@@ -108,9 +102,9 @@ paths:
       parameters: []
       responses:
         '200':
-          description: search results matching criteria
+          description: deleted expense details
         '400':
-          description: bad input parameter
+          description: 'expense details not found'
     
 definitions:
   ExpenseItem:
@@ -126,10 +120,10 @@ definitions:
         example: username
       expenseType:
         type: string
-        example: expenseType
+        example: shopping
       expenseAmount:
-        type: string
-        example: expenseAmount
+        type: integer
+        example: 20
       expenseDate:
         type: string
-        example: expenseDate
+        example: 18/03/2021

@@ -11,12 +11,18 @@ tags:
     description: Users details
 schemes:
   - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: "jwt bearer token"
 paths:
-  /users:
+  /api/users:
     post:
       tags:
         - users
-      summary: Create new users
+      summary: Create new user account
       description: Adds an new user to the system
       operationId: addUsers
       consumes:
@@ -26,40 +32,44 @@ paths:
       parameters:
         - in: body
           name: userItem
-          description: Inventory item to add
+          description: User account to add
           required: false
           schema:
             $ref: '#/definitions/UserItem'
       responses:
         '201':
-          description: item created
+          description: user created
         '400':
-          description: 'invalid input, object invalid'
-        '409':
-          description: an existing item already exists
-  /users/login:
+          description: 'User already exists'
+  /api/users/login:
     post:
       tags:
         - users
       summary: Login User
-      description: |
-        By passing username and password login a user
+      description: By passing username and password login a user
       operationId: loginUsers
       produces:
         - application/json
-      parameters: []
+      parameters:
+        - in: body
+          name: loginUser
+          description: User account login
+          required: true
+          schema:
+            $ref: '#/definitions/LoginItem'
       responses:
         '200':
-          description: search results matching criteria
+          description: logged in user
         '400':
-          description: bad input parameter
-  /users/me:
+          description: invalid user details
+  /api/users/me:
     get:
       tags:
         - users
+      security:
+        - Bearer: []
       summary: User Info
-      description: |
-        By passing bearer token get login info
+      description: By passing bearer token get login info
       operationId: infoUsers
       produces:
         - application/json
@@ -69,13 +79,14 @@ paths:
           description: search results matching criteria
         '400':
           description: bad input parameter 
-  /users/me/logout:
+  /api/users/me/logout:
     post:
       tags:
         - users
+      security:
+        - Bearer: []  
       summary: Logout user
-      description: |
-        By passing bearer token logout user
+      description: By passing bearer token to logout user
       operationId: logoutUser
       produces:
         - application/json
@@ -83,15 +94,16 @@ paths:
       responses:
         '200':
           description: search results matching criteria
-        '400':
+        '500':
           description: bad input parameter
-  /users/me/logoutall:
+  /api/users/me/logoutall:
     post:
       tags:
         - users
+      security:
+        - Bearer: []  
       summary: Logout all user session
-      description: |
-        By passing bearer token logout all user session
+      description: By passing bearer token logout all users active session
       operationId: logoutAllSession
       produces:
         - application/json
@@ -99,7 +111,7 @@ paths:
       responses:
         '200':
           description: search results matching criteria
-        '400':
+        '500':
           description: bad input parameter
 definitions:
   UserItem:
@@ -126,3 +138,15 @@ definitions:
       password:
         type: string
         example: Password1
+  LoginItem:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        example: email@gmail.com
+      password:
+        type: string
+        example: Password1      

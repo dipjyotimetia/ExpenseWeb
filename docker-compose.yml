@@ -38,13 +38,13 @@ services:
       - "27017:27017"
 
   swagger:
-    image: swaggerapi/swagger-ui
+    image: swaggerapi/swagger-ui:v3.32.5
     container_name: swagger-ui
     ports:
-      - "8001:8080"
+      - "8080:8080"
     volumes:
       - ./swagger:/usr/share/nginx/html/swagger
     environment:
-      # API_URL: swagger/expense.yaml
-      URLS: "[{ url: \"./swagger/expense.yaml\", name: \"Expense\" },
-              { url: \"./swagger/account.yaml\", name: \"Account\" },]"
+      URLS: "[{ url: \"./swagger/expense.yaml\", name: \"ExpenseAPI\" },
+                        { url: \"./swagger/account.yaml\", name: \"AccountAPI\" },
+                       ]"        

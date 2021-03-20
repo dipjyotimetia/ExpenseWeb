@@ -13,16 +13,13 @@ ExpenseApi: `http://localhost:3001`
 AccountApi: `http://localhost:3002`
 #### *Swagger*
 navigate to `http://localhost:8080`
-#### *Existing users*
-`username`: testauto@gmail.com  
-`password`: Password1
 #### *Other commands (optional)*
 ```sh
 # To stop the project
 docker-compose stop
 # To stop the project and remove containers
 docker-compose down
-# To remove all images
+# To stop and remove project containers and images
 docker-compose down --rmi all
 ```
 

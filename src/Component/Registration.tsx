@@ -1,9 +1,10 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import {
     FormControl, FormLabel, FormErrorMessage, Input,
     Divider, ButtonGroup, Button, useToast, Select,
     FormHelperText, Box, Stack
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registration } from "../api/api";
@@ -111,8 +112,8 @@ const Registration = () => {
                     </FormControl>
                     <Divider />
                     <ButtonGroup spacing={10}>
-                        <Button isLoading={loading} loadingText='Loggin In' variantColor='teal' variant='outline' onClick={handleLogin}>Already have account?</Button>
-                        <Button variantColor='teal' variant='outline' onClick={handleSignup}>Register Account</Button>
+                        <Button isLoading={loading} loadingText='Loggin In' colorScheme='teal' variant='outline' onClick={handleLogin}>Already have account?</Button>
+                        <Button colorScheme='teal' variant='outline' onClick={handleSignup}>Register Account</Button>
                     </ButtonGroup>
                 </Stack>
             </FormLabel>

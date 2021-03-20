@@ -1,9 +1,10 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import {
     Heading, FormControl, FormLabel, FormHelperText,
     Input, Button, ButtonGroup, Divider, useToast,
     Box, Stack, Alert, AlertIcon, ThemeProvider
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { useHistory } from "react-router-dom";
 import { getLogin } from "../api/api";
 
@@ -83,8 +84,8 @@ const Login = () => {
                 </Stack>
                 <Divider />
                 <ButtonGroup spacing={10}>
-                    <Button isLoading={loading} loadingText='Loading...' variantColor='teal' variant='outline' onClick={handleLogin} >Login</Button>
-                    <Button variantColor='teal' variant='outline' onClick={handleSignup}>Sign Up</Button>
+                    <Button isLoading={loading} loadingText='Loading...' colorScheme='teal' variant='outline' onClick={handleLogin} >Login</Button>
+                    <Button colorScheme='teal' variant='outline' onClick={handleSignup}>Sign Up</Button>
                 </ButtonGroup>
             </Box>
         </ThemeProvider>

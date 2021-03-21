@@ -13,6 +13,9 @@ ExpenseApi: `http://localhost:3001`
 AccountApi: `http://localhost:3002`
 #### *Swagger*
 navigate to `http://localhost:8080`
+#### *Existing user*   
+`username`: testauto@gmail.com  
+`password`: Password1   
 #### *Other commands (optional)*
 ```sh
 # To stop the project

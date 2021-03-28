@@ -1,0 +1,23 @@
+[
+    {
+        "_id": {
+            "$oid": "5d4d1c524ec98634aea20572"
+        },
+        "firstName": "Test",
+        "lastName": "Auto",
+        "username": "testauto",
+        "email": "testauto@gmail.com",
+        "password": "$2a$08$WzqweE5cipaGunuOZXRvGOmGKEpKj8p/gvFWWMYwRUnKurvFghjBu",
+        "tokens": [
+            {
+                "_id": {
+                    "$oid": "5d4d1c524ec98634aea20573"
+                },
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDRkMWM1MjRlYzk4NjM0YWVhMjA1NzIiLCJpYXQiOjE1NjUzMzQ2MTB9.npM7nsLtFldDrDS0xIxH3jk8u8X2ZrVZ5Aaec_Eja70"
+            }
+        ],
+        "__v": {
+            "$numberInt": "1"
+        }
+    }
+]

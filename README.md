@@ -2,6 +2,8 @@
 
 ## Application Overview:
 
+![image](./doc/ExpenseWebApp.png)
+
 The application allows users to manage their daily expenses, you can get registered in the application and add your daily expenses, it will store your expense details.   
 
 ## Prerequisite

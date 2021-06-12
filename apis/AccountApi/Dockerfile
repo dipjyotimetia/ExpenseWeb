@@ -1,4 +1,4 @@
-FROM node:14.16-slim
+FROM node:14.17-slim
 
 WORKDIR /accountapi
 

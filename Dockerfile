@@ -1,4 +1,4 @@
-FROM node:14.6.0-slim as builder
+FROM node:14.7.0-slim as builder
 
 WORKDIR /webapp
 COPY package.json package-lock.json tsconfig.json ./

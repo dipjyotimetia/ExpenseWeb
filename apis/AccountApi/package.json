@@ -11,13 +11,13 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "helmet": "4.4.1",
+    "helmet": "4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.6.5",
-    "mongoose": "^5.12.0",
-    "validator": "^13.5.2"
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.13",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.7"
   }
 }

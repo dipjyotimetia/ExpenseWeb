@@ -1,17 +1,16 @@
+//@ts-nocheck
 import React from 'react'
 import {
-  CSSReset,
-  ThemeProvider,
+  ChakraProvider,
   theme,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./Component/Login";
 import Registration from "./Component/Registration";
 import HomePage from "./Component/HomePage";
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <CSSReset />
+  <ChakraProvider theme={theme}>
     <Router>
       <Switch>
         <Route exact path='/'>
@@ -25,7 +24,7 @@ const App = () => (
         </Route>
       </Switch>
     </Router>
-  </ThemeProvider>
+  </ChakraProvider>
 )
 
 export default App

@@ -1,9 +1,10 @@
+//@ts-nocheck
 import React, { useState, useEffect } from 'react';
 import {
     Input, Box, Flex, Stack, Divider, FormControl, FormLabel, Skeleton,
     ThemeProvider, NumberInput, Slider, SliderTrack, SliderFilledTrack,
     SliderThumb, ButtonGroup, Button
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import {
     Grid, makeStyles, Table, TableBody, TableCell, TableContainer, Typography,
     TableHead, TableRow, Paper, TablePagination, IconButton, AppBar, Toolbar
@@ -146,7 +147,7 @@ const HomePage = () => {
                     </MuiPickersUtilsProvider>
                     <Divider />
                     <ButtonGroup spacing={10}>
-                        <Button isLoading={loading} loadingText='Loading...' variantColor='teal' variant='outline' onClick={handleExpense}>Add Expense</Button>
+                        <Button isLoading={loading} loadingText='Loading...' colorScheme='teal' variant='outline' onClick={handleExpense}>Add Expense</Button>
                     </ButtonGroup>
                 </Stack>
             </Box>

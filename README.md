@@ -1,5 +1,11 @@
 # ExpenseWeb
 
+## Application Overview:
+
+![image](./doc/ExpenseWebApp.png)
+
+The application allows users to manage their daily expenses, you can get registered in the application and add your daily expenses, it will store your expense details.   
+
 ## Prerequisite
 Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop) based on your operating system.
 

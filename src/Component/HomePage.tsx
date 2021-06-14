@@ -77,9 +77,9 @@ const HomePage = () => {
         }
     }
 
-    const handleLogout = async ()=>{
+    const handleLogout = async () => {
         const res = await logout(token);
-        if (res===200) {
+        if (res === 200) {
             history.push('/');
         }
     }

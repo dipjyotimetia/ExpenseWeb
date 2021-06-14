@@ -93,7 +93,7 @@ const Registration = () => {
                         </FormErrorMessage>
                         <FormHelperText id="email-helper-text">
                             We'll never share your email.
-                    </FormHelperText>
+                        </FormHelperText>
                     </FormControl>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="mobile">Mobile No</FormLabel>

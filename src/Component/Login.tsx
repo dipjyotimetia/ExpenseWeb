@@ -61,12 +61,12 @@ const Login = () => {
         <ThemeProvider>
             <Alert status="info">
                 <AlertIcon />
-                    Expense is going live on August 30th. Get ready!
-                </Alert>
+                Expense is going live on August 30th. Get ready!
+            </Alert>
             <Box textAlign="center" w={600} mx="auto" p={6} bg="white" border="1px solid" borderColor="gray.200" borderRadius="md">
                 <Heading as="h1" size="xl" textAlign="match-parent">
                     Expense
-            </Heading>
+                </Heading>
                 <Stack spacing={4}>
                     <FormLabel alignContent='center' >
                         <FormControl isRequired>
@@ -74,7 +74,7 @@ const Login = () => {
                             <Input type='email' id='email' aria-describedby="email-helper-text" placeholder="Email Address" onChange={e => setEmail(e.target.value)} />
                             <FormHelperText id="email-helper-text">
                                 We'll never share your email.
-                    </FormHelperText>
+                            </FormHelperText>
                         </FormControl>
                         <FormControl isRequired>
                             <FormLabel htmlFor="password">Password</FormLabel>

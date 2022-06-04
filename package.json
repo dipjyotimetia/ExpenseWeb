@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@chakra-ui/react": "1.6.3",
-    "@chakra-ui/theme": "1.9.0",
+    "@chakra-ui/theme": "2.0.3",
     "@date-io/date-fns": "^2.10.11",
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",

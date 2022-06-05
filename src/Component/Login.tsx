@@ -1,23 +1,22 @@
-//@ts-nocheck
 import React, { useState } from "react";
 import {
     Heading, FormControl, FormLabel, FormHelperText,
     Input, Button, ButtonGroup, Divider, useToast,
     Box, Stack, Alert, AlertIcon, ThemeProvider
 } from '@chakra-ui/react'
-import { useHistory } from "react-router-dom";
+import { theme } from "@chakra-ui/core";
+import { useNavigate } from "react-router-dom";
 import { getLogin } from "../api/api";
 
 const Login = () => {
-
     const toast = useToast();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const history = useHistory();
+    const navigate  = useNavigate();
 
     const handleSignup = () => {
-        history.push('/registration');
+        navigate('/registration');
     }
 
     const handleLogin = async () => {
@@ -26,7 +25,7 @@ const Login = () => {
             const response = await getLogin({ email, password });
             if (response && response.user) {
                 successToast();
-                history.push('/homepage');
+                navigate('/homepage');
                 localStorage.setItem('user', email);
                 localStorage.setItem('token', response.token);
                 setLoading(false);
@@ -57,8 +56,20 @@ const Login = () => {
         })
     }
 
+    const customTheme = {
+        ...theme,
+        colors: {
+          ...theme.colors,
+          brand: {
+            900: "#1a365d",
+            800: "#153e75",
+            700: "#2a69ac",
+          },
+        },
+      };
+
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={customTheme}>
             <Alert status="info">
                 <AlertIcon />
                     Expense is going live on August 30th. Get ready!

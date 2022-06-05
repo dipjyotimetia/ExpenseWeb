@@ -5,9 +5,10 @@ import {
     ThemeProvider, NumberInput, Slider, SliderTrack, SliderFilledTrack,
     SliderThumb, ButtonGroup, Button
 } from '@chakra-ui/react'
+import { theme } from "@chakra-ui/core";
 import {
     Grid, makeStyles, Table, TableBody, TableCell, TableContainer, Typography,
-    TableHead, TableRow, Paper, TablePagination, IconButton, AppBar, Toolbar
+    TableHead, TableRow, Paper, TablePagination, IconButton, AppBar, Toolbar 
 }
     from "@material-ui/core";
 import ButtonPlace from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import format from 'date-fns/format'
-import { useHistory } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import { addExpense, getExpense, logout } from "../api/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +52,7 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
@@ -80,7 +81,7 @@ const HomePage = () => {
     const handleLogout = async ()=>{
         const res = await logout(token);
         if (res===200) {
-            history.push('/');
+            navigate('/');
         }
     }
 
@@ -94,8 +95,20 @@ const HomePage = () => {
         fetchData();
     }, [loading])
 
+    const customTheme = {
+        ...theme,
+        colors: {
+          ...theme.colors,
+          brand: {
+            900: "#1a365d",
+            800: "#153e75",
+            700: "#2a69ac",
+          },
+        },
+      };
+
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={customTheme}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -193,7 +206,7 @@ const HomePage = () => {
                         count={data.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        onChangePage={handleChangePage}
+                        onPageChange={handleChangePage}
                         onChangeRowsPerPage={handleChangeRowsPerPage}
                     />
                 </Skeleton>

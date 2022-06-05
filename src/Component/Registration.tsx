@@ -1,19 +1,18 @@
-//@ts-nocheck
 import React, { useState } from "react";
 import {
     FormControl, FormLabel, FormErrorMessage, Input,
     Divider, ButtonGroup, Button, useToast, Select,
     FormHelperText, Box, Stack
 } from '@chakra-ui/react'
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { registration } from "../api/api";
 
 const Registration = () => {
 
     const toast = useToast();
-    const history = useHistory();
-    const { errors, register } = useForm();
+    const navigate = useNavigate();
+    const { formState: { errors }, register } = useForm();
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -57,7 +56,7 @@ const Registration = () => {
     }
 
     const handleLogin = () => {
-        history.push('/');
+        navigate('/');
     }
 
     return (
@@ -66,28 +65,28 @@ const Registration = () => {
                 <Stack spacing={4}>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="Username">Username</FormLabel>
-                        <Input type="text" placeholder="Username" name="Username" ref={register({ required: true, maxLength: 80, validate: validateName })} onChange={e => setUsername(e.target.value)} />
+                        <Input type="text" placeholder="Username" name="Username" {...register("Username",{ required: true, maxLength: 80, validate: validateName })} onChange={e => setUsername(e.target.value)} />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="First Name">First name</FormLabel>
-                        <Input type="text" placeholder="First name" name="First name" ref={register({ required: true, maxLength: 80, validate: validateName })} onChange={e => setFirstName(e.target.value)} />
+                        <Input type="text" placeholder="First name" name="First name" {...register("First name",{ required: true, maxLength: 80, validate: validateName })} onChange={e => setFirstName(e.target.value)} />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="Last Name">Last name</FormLabel>
-                        <Input type="text" placeholder="Last name" name="Last name" ref={register({ required: true, maxLength: 100 })} onChange={e => setLastName(e.target.value)} />
+                        <Input type="text" placeholder="Last name" name="Last name" {...register("Last name",{ required: true, maxLength: 100 })} onChange={e => setLastName(e.target.value)} />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="email">Email</FormLabel>
-                        <Input type="text" placeholder="Email" name="Email" ref={register({ required: true, pattern: /^\S+@\S+$/i })} onChange={e => setEmail(e.target.value)} />
+                        <Input type="text" placeholder="Email" name="Email" {...register("Email",{ required: true, pattern: /^\S+@\S+$/i })} onChange={e => setEmail(e.target.value)} />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
@@ -97,13 +96,13 @@ const Registration = () => {
                     </FormControl>
                     <FormControl isInvalid={errors.name}>
                         <FormLabel htmlFor="mobile">Mobile No</FormLabel>
-                        <Input type="tel" placeholder="Mobile number" name="Mobile number" ref={register({ required: true, minLength: 6, maxLength: 12 })} onChange={e => setPassword(e.target.value)} />
+                        <Input type="tel" placeholder="Mobile number" name="Mobile number" {...register("Mobile number",{ required: true, minLength: 6, maxLength: 12 })} onChange={e => setPassword(e.target.value)} />
                         <FormErrorMessage>
                             {errors.name && errors.name.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl>
-                        <Select name="Title" ref={register({ required: true })}>
+                        <Select name="Title" {...register("Title",{ required: true })}>
                             <option value="Mr">Mr</option>
                             <option value="Mrs">Mrs</option>
                             <option value="Miss">Miss</option>
